@@ -1,0 +1,29 @@
+{
+  "name": "ntro-social-intelligence",
+  "version": "1.0.0",
+  "private": true,
+  "description": "AI-Powered Social Media Intelligence & Network Analysis Platform (NTRO / SIH)",
+  "workspaces": [
+    "packages/*",
+    "services/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "build": "npm run build:shared && npm run build:api && npm run build:web",
+    "build:shared": "npm run build --workspace @ntro/types && npm run build --workspace @ntro/shared",
+    "dev:api": "npm run dev --workspace @ntro/api",
+    "dev:web": "npm run dev --workspace @ntro/web",
+    "dev:ingestion": "npm run dev --workspace @ntro/ingestion",
+    "dev:mobile": "npm run start --workspace @ntro/mobile",
+    "build:api": "npm run build --workspace @ntro/api",
+    "build:web": "npm run build --workspace @ntro/web",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "test": "npm run test --workspaces --if-present",
+    "test:ai": "python3 -m unittest services/ai-service/tests/test_analyzer.py",
+    "lint": "npm run lint --workspaces --if-present"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "license": "UNLICENSED"
+}

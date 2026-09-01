@@ -1,0 +1,133 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-base: #F8FAFC;
+  --bg-surface: #FFFFFF;
+  --bg-card: #FFFFFF;
+  --bg-card-hover: #F1F5F9;
+  --border-subtle: #E2E8F0;
+  --border-focus: #0062FF;
+  --accent-blue: #0062FF;
+  --accent-cobalt: #0062FF;
+  --accent-violet: #8B5CF6;
+  --accent-sky: #0EA5E9;
+  --text-primary: #0F172A;
+  --text-secondary: #334155;
+  --text-muted: #64748B;
+  --status-success: #10B981;
+  --status-warning: #F59E0B;
+  --status-critical: #EF4444;
+}
+
+body {
+  background-color: #F8FAFC;
+  color: #0F172A;
+  font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: -0.01em;
+}
+
+@layer base {
+  * {
+    @apply border-slate-200;
+  }
+}
+
+@layer components {
+  /* Crisp White Intelligence Console Card */
+  .panel {
+    @apply bg-white border border-slate-200 rounded-2xl p-5 shadow-sm transition-all duration-200 hover:shadow-md hover:border-[#0062FF]/30;
+  }
+
+  .panel-title {
+    @apply text-xs font-mono font-bold text-slate-600 uppercase tracking-wider mb-3 flex items-center gap-2;
+  }
+
+  .kpi-value {
+    @apply text-2xl font-bold text-slate-900 tracking-tight;
+  }
+
+  .kpi-label {
+    @apply text-xs text-slate-500 uppercase tracking-wider font-medium font-mono;
+  }
+
+  /* Royal & Violet Gradient Action Buttons */
+  .btn {
+    @apply inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-[#0062FF]/30 active:scale-[0.98];
+  }
+
+  .btn-primary {
+    @apply bg-gradient-to-r from-[#0062FF] via-[#5B50F6] to-[#8B5CF6] text-white hover:opacity-95 font-bold shadow-sm;
+  }
+
+  .btn-violet {
+    @apply bg-gradient-to-r from-[#7C3AED] to-[#A855F7] text-white hover:opacity-95 font-bold shadow-sm;
+  }
+
+  .btn-emerald {
+    @apply bg-[#10B981] text-white hover:bg-[#059669] font-bold shadow-sm;
+  }
+
+  .btn-cyan {
+    @apply bg-[#0EA5E9] text-white hover:bg-[#0284C7] font-bold shadow-sm;
+  }
+
+  .btn-amber {
+    @apply bg-[#F59E0B] text-white hover:bg-[#D97706] font-bold shadow-sm;
+  }
+
+  .btn-ghost {
+    @apply bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 hover:text-slate-900 shadow-sm;
+  }
+
+  .badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-mono font-semibold tracking-wide uppercase;
+  }
+
+  /* Propagation Flow Line Utility */
+  .propagation-flow-line {
+    @apply relative after:content-[''] after:absolute after:h-[2px] after:bg-gradient-to-r after:from-[#0062FF] after:via-[#6366F1] after:to-[#8B5CF6];
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F1F5F9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
+}
+
+/* Recharts Tooltip in Clean White Glass */
+.recharts-default-tooltip {
+  background-color: #FFFFFF !important;
+  border: 1px solid #CBD5E1 !important;
+  border-radius: 12px !important;
+  color: #0F172A !important;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1) !important;
+}
+
+.recharts-cartesian-axis-tick text {
+  fill: #64748B !important;
+  font-size: 11px !important;
+}
+
+/* 3D Helpers */
+.perspective-1000 {
+  perspective: 1000px;
+}
+.preserve-3d {
+  transform-style: preserve-3d;
+}
