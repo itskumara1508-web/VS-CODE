@@ -19,12 +19,22 @@ import { NarrativeFlow } from './components/NarrativeFlow';
 import { AIInsights } from './components/AIInsights';
 import { ReportModal } from './components/ReportModal';
 import { Footer } from './components/Footer';
+import { LoginPage } from './components/LoginPage';
 import { useLiveData } from './hooks/useLiveData';
+
+interface AuthUser {
+  name: string;
+  badgeId: string;
+  role: string;
+  clearance: string;
+}
 
 export const App: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [activeTab, setActiveTab] = useState<string>('overview');
   const [isReportOpen, setIsReportOpen] = useState<boolean>(false);
+  const [showLoginPage, setShowLoginPage] = useState<boolean>(false);
+  const [currentUser, setCurrentUser] = useState<AuthUser | null>(null);
 
   // Real-time live data simulation hook
   const {
@@ -73,8 +83,35 @@ export const App: React.FC = () => {
     );
   }
 
+  if (showLoginPage) {
+    return (
+      <LoginPage
+        onLoginSuccess={(user) => {
+          setCurrentUser(user);
+          setShowLoginPage(false);
+        }}
+        onBackToDashboard={() => setShowLoginPage(false)}
+      />
+    );
+  }
+
   return (
     <div className="min-h-screen bg-[#030712] text-slate-100 flex flex-col selection:bg-cyan-500/30 selection:text-cyan-200">
+      {/* Classified Officer Session Header if Logged In */}
+      {currentUser && (
+        <div className="w-full py-1.5 px-4 sm:px-8 bg-emerald-950/90 border-b border-emerald-500/40 text-emerald-300 font-mono text-[10px] tracking-widest flex flex-wrap items-center justify-between uppercase">
+          <div className="flex items-center space-x-2">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
+            <span className="font-bold">SECURE NTRO SESSION ACTIVE • {currentUser.role}</span>
+          </div>
+          <div className="flex items-center space-x-4 text-slate-300">
+            <span>OFFICER: <strong className="text-white">{currentUser.name}</strong></span>
+            <span>ID: <strong className="text-cyan-300">{currentUser.badgeId}</strong></span>
+            <span className="text-emerald-400 font-bold">{currentUser.clearance}</span>
+          </div>
+        </div>
+      )}
+
       {/* Sticky Navigation Bar */}
       <Navbar
         activeTab={activeTab}
@@ -84,6 +121,9 @@ export const App: React.FC = () => {
         onOpenReport={() => setIsReportOpen(true)}
         isBursting={isBursting}
         pulseCount={pulseCount}
+        user={currentUser}
+        onOpenLogin={() => setShowLoginPage(true)}
+        onLogout={() => setCurrentUser(null)}
       />
 
       {/* Main Command Center Content */}
