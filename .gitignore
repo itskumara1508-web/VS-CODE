@@ -28,3 +28,6 @@ dist-ssr
 .env.*
 !.env.example
 
+# Legacy monorepo folder
+ntro-social-intelligence/
+

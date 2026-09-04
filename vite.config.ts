@@ -11,12 +11,16 @@ export default defineConfig({
     chunkSizeWarningLimit: 1200,
     rollupOptions: {
       output: {
-        manualChunks: {
-          vendor: ['react', 'react-dom'],
-          three: ['three'],
-          charts: ['recharts'],
-          motion: ['framer-motion'],
-          icons: ['lucide-react'],
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            if (id.includes('three')) return 'three';
+            if (id.includes('recharts')) return 'charts';
+            if (id.includes('framer-motion')) return 'motion';
+            if (id.includes('lucide-react')) return 'icons';
+            if (id.includes('react') || id.includes('react-dom') || id.includes('scheduler')) {
+              return 'vendor';
+            }
+          }
         },
       },
     },

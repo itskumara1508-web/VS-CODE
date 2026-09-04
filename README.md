@@ -29,7 +29,7 @@ PulseX unifies real-time multi-platform social discourse signals across **X (Twi
 
 ## 🚀 Live Demo & Screenshots
 
-- **Live GitHub Pages URL**: `https://<username>.github.io/<repo-name>/`
+- **Live GitHub Pages URL**: `https://itskumara1508-web.github.io/VS-CODE/`
 - **Demo Mode**: Ready out-of-the-box with high-fidelity simulated real-time data. No backend or API keys required for evaluation.
 
 ---
