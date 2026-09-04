@@ -2,6 +2,7 @@
   "name": "pulsex-ai-intelligence",
   "private": true,
   "version": "1.0.0",
+  "homepage": "https://itskumara1508-web.github.io/VS-CODE/",
   "type": "module",
   "scripts": {
     "dev": "vite",

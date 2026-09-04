@@ -38,6 +38,12 @@ class IntelligenceAPIService {
       return fallback;
     }
 
+    // When deployed on HTTPS (e.g., GitHub Pages), block insecure HTTP requests to prevent mixed content errors
+    const isHttps = typeof window !== 'undefined' && window.location.protocol === 'https:';
+    if (isHttps && API_BASE_URL.startsWith('http://')) {
+      return fallback;
+    }
+
     try {
       const response = await fetch(`${API_BASE_URL}${endpoint}`, {
         headers: {
