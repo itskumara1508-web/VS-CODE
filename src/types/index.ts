@@ -155,3 +155,4 @@ export interface AIInsight {
   recommendedAction: string;
   relatedEntities: string[];
 }
+
