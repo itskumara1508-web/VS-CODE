@@ -1,4 +1,4 @@
-# PulseX — AI Social Media Intelligence
+# SocioIntell — AI Social Media Intelligence
 
 [![Smart India Hackathon 2026](https://img.shields.io/badge/SIH-2026-blue.svg)](https://sih.gov.in/)
 [![Problem ID](https://img.shields.io/badge/Problem%20ID-26152-cyan.svg)](https://sih.gov.in/)
@@ -6,17 +6,17 @@
 [![Tech Stack](https://img.shields.io/badge/Stack-React%20%7C%20Vite%20%7C%20Three.js%20%7C%20Tailwind-00f0ff.svg)](#tech-stack)
 [![GitHub Pages](https://img.shields.io/badge/Deployment-GitHub%20Pages-success.svg)](#deployment)
 
-> **PulseX** is an intelligence-grade, AI-powered social media command center designed for the **National Technical Research Organisation (NTRO)** under **Smart India Hackathon 2026** (Problem Statement ID: **26152** • Domain: *Social Media Analytics*).
+> **SocioIntell** is an intelligence-grade, AI-powered social media command center designed for the **National Technical Research Organisation (NTRO)** under **Smart India Hackathon 2026** (Problem Statement ID: **26152** • Domain: *Social Media Analytics*).
 
 ---
 
 ## 🎯 Executive Overview
 
-PulseX unifies real-time multi-platform social discourse signals across **X (Twitter)**, **Telegram**, **Instagram**, **Facebook**, **Reddit**, and **YouTube** into a cohesive cyber-intelligence command center. Rather than acting as a generic administrative dashboard, PulseX is engineered specifically for intelligence and security analysts to track, forecast, and deconstruct narrative weaponization, viral information cascades, and coordinated amplification.
+SocioIntell unifies real-time multi-platform social discourse signals across **X (Twitter)**, **Telegram**, **Instagram**, **Facebook**, **Reddit**, and **YouTube** into a cohesive cyber-intelligence command center. Rather than acting as a generic administrative dashboard, SocioIntell is engineered specifically for intelligence and security analysts to track, forecast, and deconstruct narrative weaponization, viral information cascades, and coordinated amplification.
 
 ### Key SIH Problem Statement Alignment
 
-| SIH Requirement | Implementation in PulseX |
+| SIH Requirement | Implementation in SocioIntell |
 | :--- | :--- |
 | **A. Continuous Data Collection & Timeline** | Live ingestion stream across 6 platforms, pipeline latency telemetry, and historical/CSV upload simulator. |
 | **B. Multi-Dimensional Sentiment Inference** | 24H/7D/30D emotional timeline across 5 emotional vectors, composite sentiment gauge, and deep sarcasm/innuendo NLP decoder. |
@@ -116,7 +116,7 @@ PulseX unifies real-time multi-platform social discourse signals across **X (Twi
    ```
 
 4. **Open in browser**:
-   Navigate to `http://localhost:5173` to explore the PulseX intelligence interface.
+   Navigate to `http://localhost:5173` to explore the SocioIntell intelligence interface.
 
 ---
 
@@ -147,7 +147,7 @@ The repository includes a ready-to-use GitHub Actions workflow located at [`.git
 1. Push this repository to GitHub:
    ```bash
    git add .
-   git commit -m "Deploy PulseX AI Social Media Intelligence dashboard"
+   git commit -m "Deploy SocioIntell AI Social Media Intelligence dashboard"
    git push origin main
    ```
 
@@ -161,7 +161,7 @@ The repository includes a ready-to-use GitHub Actions workflow located at [`.git
 
 ## 🔌 Connecting a FastAPI / AI Backend (Future Integration)
 
-PulseX is engineered with a clean decoupled API service layer in [`src/services/api.ts`](src/services/api.ts).
+SocioIntell is engineered with a clean decoupled API service layer in [`src/services/api.ts`](src/services/api.ts).
 
 ### Step 1: Configure Environment
 
@@ -188,13 +188,13 @@ Your FastAPI backend can implement the following REST endpoints:
 - `GET /api/v1/network/topology` → Returns `{ nodes, edges }`
 - `POST /api/v1/analysis/sarcasm` → Accepts `{ text: string }` and returns `SarcasmAnalysis`
 
-> **Note**: If `VITE_API_URL` is omitted or the backend is temporarily offline, PulseX automatically falls back to its local high-fidelity intelligence simulation without throwing breaking errors.
+> **Note**: If `VITE_API_URL` is omitted or the backend is temporarily offline, SocioIntell automatically falls back to its local high-fidelity intelligence simulation without throwing breaking errors.
 
 ---
 
 ## 🛡️ Privacy & Compliance Guarantee
 
-PulseX strictly conforms to government and defense ethical data standards:
+SocioIntell strictly conforms to government and defense ethical data standards:
 - **Zero PII (Personally Identifiable Information)**: All demographic distributions are statistical approximations inferred across large population aggregates.
 - **Compliance**: Adheres to the Indian Digital Personal Data Protection (DPDP) framework.
 - **Non-Invasive Inference**: Public discourse telemetry only; no private chats or unauthorized access.
@@ -206,5 +206,5 @@ PulseX strictly conforms to government and defense ethical data standards:
 - **Organization**: National Technical Research Organisation (NTRO)
 - **Problem Statement**: Social Media Analytics (ID: 26152)
 - **Category**: Software • Cyber Intelligence & Defense
-- **Team Submission**: PulseX — AI Social Media Intelligence
+- **Team Submission**: SocioIntell — AI Social Media Intelligence
 

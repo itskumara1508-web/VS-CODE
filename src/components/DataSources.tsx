@@ -14,7 +14,8 @@ import {
   FileCode,
   Sparkles,
 } from 'lucide-react';
-import { PlatformSource, IngestionEvent } from '../types';
+import { PlatformSource, IngestionEvent, Platform } from '../types';
+import { getPlatformIcon } from './PlatformLogos';
 
 interface DataSourcesProps {
   sources: PlatformSource[];
@@ -22,6 +23,7 @@ interface DataSourcesProps {
   totalPosts: number;
   activeUsers: number;
   totalInteractions: number;
+  onSelectPlatform?: (platform: Platform) => void;
 }
 
 export const DataSources: React.FC<DataSourcesProps> = ({
@@ -30,6 +32,7 @@ export const DataSources: React.FC<DataSourcesProps> = ({
   totalPosts,
   activeUsers,
   totalInteractions,
+  onSelectPlatform,
 }) => {
   const [activeMode, setActiveMode] = useState<'live' | 'historical' | 'upload'>('live');
   const [uploadStatus, setUploadStatus] = useState<string | null>(null);
@@ -221,10 +224,9 @@ export const DataSources: React.FC<DataSourcesProps> = ({
                 {/* Header */}
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center space-x-2.5">
-                    <div
-                      className="w-3 h-3 rounded-full"
-                      style={{ backgroundColor: src.color }}
-                    />
+                    <div className="w-6 h-6 rounded-md bg-slate-900 border border-slate-700 flex items-center justify-center p-1">
+                      {getPlatformIcon(src.name, 'w-4 h-4')}
+                    </div>
                     <h3 className="text-sm font-bold text-white">{src.name}</h3>
                   </div>
 
@@ -244,7 +246,7 @@ export const DataSources: React.FC<DataSourcesProps> = ({
                   </span>
                 </div>
 
-                <p className="text-xs text-slate-400 line-clamp-2 mb-4 h-8">
+                <p className="text-xs text-slate-400 line-clamp-2 mb-3 h-8">
                   {src.description}
                 </p>
 
@@ -264,7 +266,7 @@ export const DataSources: React.FC<DataSourcesProps> = ({
                   </div>
                 </div>
 
-                {/* Footer status */}
+                {/* Footer status & Action */}
                 <div className="flex items-center justify-between mt-3 text-[11px] font-mono text-slate-400">
                   <span className="flex items-center space-x-1">
                     <Clock className="w-3 h-3 text-slate-500" />
@@ -272,6 +274,17 @@ export const DataSources: React.FC<DataSourcesProps> = ({
                   </span>
                   <span className="text-emerald-400/90 font-medium">Health {src.healthScore}%</span>
                 </div>
+
+                {/* Dedicated Page Button */}
+                {onSelectPlatform && (
+                  <button
+                    onClick={() => onSelectPlatform(src.name)}
+                    className="w-full mt-3.5 py-1.5 px-2.5 rounded-lg bg-slate-800/90 hover:bg-cyan-950/80 text-slate-300 hover:text-cyan-300 border border-slate-700 hover:border-cyan-500/50 text-xs font-mono font-medium flex items-center justify-center space-x-1.5 transition-all group-hover:shadow-glow-cyan"
+                  >
+                    <span>Open {src.name} Dedicated Page</span>
+                    <ArrowRight className="w-3 h-3 text-cyan-400" />
+                  </button>
+                )}
               </div>
             );
           })}

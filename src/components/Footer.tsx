@@ -1,6 +1,11 @@
-import { Shield, ArrowUp } from 'lucide-react';
+import { Shield, ArrowUp, Lock, LogOut } from 'lucide-react';
 
-export const Footer: React.FC = () => {
+interface FooterProps {
+  onOpenLogin?: () => void;
+  onOpenLogout?: () => void;
+}
+
+export const Footer: React.FC<FooterProps> = ({ onOpenLogin, onOpenLogout }) => {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -16,7 +21,7 @@ export const Footer: React.FC = () => {
                 <Shield className="w-4 h-4" />
               </div>
               <span className="text-lg font-bold text-white tracking-wider">
-                Pulse<span className="text-cyan-400">X</span>
+                Socio<span className="text-cyan-400">Intell</span>
               </span>
               <span className="px-2 py-0.5 text-[9px] rounded bg-cyan-500/10 border border-cyan-500/30 text-cyan-300">
                 SIH 2026 • NTRO
@@ -57,7 +62,26 @@ export const Footer: React.FC = () => {
               </div>
               <p>Aggregated statistical models only</p>
               <p>FastAPI Microservice Ready</p>
-              <p>GitHub Pages Compatible</p>
+              <div className="pt-2 flex flex-col space-y-1 border-t border-slate-800/80">
+                {onOpenLogin && (
+                  <button
+                    onClick={onOpenLogin}
+                    className="flex items-center space-x-1.5 text-cyan-400 hover:text-cyan-300 transition-colors"
+                  >
+                    <Lock className="w-3 h-3" />
+                    <span>Officer Login Portal</span>
+                  </button>
+                )}
+                {onOpenLogout && (
+                  <button
+                    onClick={onOpenLogout}
+                    className="flex items-center space-x-1.5 text-rose-400 hover:text-rose-300 transition-colors"
+                  >
+                    <LogOut className="w-3 h-3" />
+                    <span>Session Termination (Logout)</span>
+                  </button>
+                )}
+              </div>
             </div>
           </div>
         </div>
@@ -65,7 +89,7 @@ export const Footer: React.FC = () => {
         {/* Bottom copyright & scroll-to-top */}
         <div className="flex flex-col sm:flex-row items-center justify-between text-[11px] text-slate-500 gap-4">
           <div>
-            © 2026 PulseX Intelligence • Smart India Hackathon 2026 • Built for NTRO Evaluation
+            © 2026 SocioIntell • Smart India Hackathon 2026 • Built for NTRO Evaluation
           </div>
 
           <div className="flex items-center space-x-4">

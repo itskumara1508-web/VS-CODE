@@ -156,3 +156,10 @@ export interface AIInsight {
   relatedEntities: string[];
 }
 
+export interface AuthUser {
+  name: string;
+  badgeId: string;
+  role: string;
+  clearance: string;
+  loginTime?: string;
+}

@@ -10,9 +10,10 @@ import {
   ArrowLeft,
   Sparkles,
 } from 'lucide-react';
+import { AuthUser } from '../types';
 
 interface LoginPageProps {
-  onLoginSuccess: (user: { name: string; badgeId: string; role: string; clearance: string }) => void;
+  onLoginSuccess: (user: AuthUser) => void;
   onBackToDashboard: () => void;
 }
 
@@ -57,6 +58,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({
         badgeId: badgeId.toUpperCase(),
         role: 'Chief Cyber Intelligence Officer',
         clearance: clearance.split(' ')[0] + ' ' + clearance.split(' ')[1],
+        loginTime: new Date().toLocaleTimeString(),
       });
     }, 2200);
   };
@@ -74,6 +76,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({
         badgeId: 'NTRO-JURY-26152',
         role: 'Senior Evaluation Officer',
         clearance: 'Level 4 (SCI)',
+        loginTime: new Date().toLocaleTimeString(),
       });
     }, 1000);
   };
@@ -112,7 +115,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({
             SIH 2026 • NTRO PROBLEM 26152
           </span>
           <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-white">
-            Pulse<span className="text-cyan-400">X</span> Command Center
+            Socio<span className="text-cyan-400">Intell</span> Command Center
           </h1>
           <p className="text-xs text-slate-400 font-mono mt-1">
             SECURE ACCESS GATEWAY • RESTRICTED CLEARANCE

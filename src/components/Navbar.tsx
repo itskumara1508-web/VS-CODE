@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import {
   Activity,
-  Shield,
   Zap,
   RotateCw,
   FileText,
@@ -16,7 +15,18 @@ import {
   Sparkles,
   Lock,
   LogOut,
+  ChevronDown,
 } from 'lucide-react';
+import { AuthUser, Platform } from '../types';
+import { SocioIntellLogo } from './SocioIntellLogo';
+import {
+  XLogo,
+  TelegramLogo,
+  InstagramLogo,
+  FacebookLogo,
+  RedditLogo,
+  YoutubeLogo,
+} from './PlatformLogos';
 
 interface NavbarProps {
   activeTab: string;
@@ -26,9 +36,11 @@ interface NavbarProps {
   onOpenReport: () => void;
   isBursting: boolean;
   pulseCount: number;
-  user: { name: string; badgeId: string; role: string; clearance: string } | null;
+  user: AuthUser | null;
   onOpenLogin: () => void;
   onLogout: () => void;
+  onSelectPlatform?: (platform: Platform) => void;
+  activePlatform?: Platform | null;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -41,8 +53,11 @@ export const Navbar: React.FC<NavbarProps> = ({
   user,
   onOpenLogin,
   onLogout,
+  onSelectPlatform,
+  activePlatform,
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [platformMenuOpen, setPlatformMenuOpen] = useState(false);
 
   const navItems = [
     { id: 'overview', label: 'Overview', icon: Activity },
@@ -55,6 +70,15 @@ export const Navbar: React.FC<NavbarProps> = ({
     { id: 'insights', label: 'AI Insights', icon: Layers },
   ];
 
+  const platforms: { name: Platform; label: string; icon: React.ReactNode; color: string; border: string }[] = [
+    { name: 'X', label: 'X (Twitter)', icon: <XLogo className="w-3.5 h-3.5" />, color: 'text-sky-400', border: 'border-sky-500/40' },
+    { name: 'Telegram', label: 'Telegram', icon: <TelegramLogo className="w-3.5 h-3.5" />, color: 'text-cyan-400', border: 'border-cyan-500/40' },
+    { name: 'Instagram', label: 'Instagram', icon: <InstagramLogo className="w-3.5 h-3.5" />, color: 'text-pink-400', border: 'border-pink-500/40' },
+    { name: 'Facebook', label: 'Facebook', icon: <FacebookLogo className="w-3.5 h-3.5" />, color: 'text-blue-400', border: 'border-blue-500/40' },
+    { name: 'Reddit', label: 'Reddit', icon: <RedditLogo className="w-3.5 h-3.5" />, color: 'text-orange-400', border: 'border-orange-500/40' },
+    { name: 'YouTube', label: 'YouTube', icon: <YoutubeLogo className="w-3.5 h-3.5" />, color: 'text-red-400', border: 'border-red-500/40' },
+  ];
+
   const handleNavClick = (id: string) => {
     onSelectTab(id);
     setMobileMenuOpen(false);
@@ -64,41 +88,38 @@ export const Navbar: React.FC<NavbarProps> = ({
     }
   };
 
+  const handlePlatformClick = (p: Platform) => {
+    setMobileMenuOpen(false);
+    setPlatformMenuOpen(false);
+    if (onSelectPlatform) {
+      onSelectPlatform(p);
+    }
+  };
+
   return (
-    <header className="sticky top-0 z-50 w-full glass-panel border-b border-cyan-500/20 backdrop-blur-xl">
+    <header className="sticky top-0 z-50 w-full glass-panel border-b border-cyan-500/30 backdrop-blur-xl shadow-2xl">
+      {/* Top Cyber Telemetry Line */}
+      <div className="h-[2px] w-full bg-gradient-to-r from-transparent via-cyan-400 to-transparent" />
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          {/* Logo & NTRO Badge */}
-          <div className="flex items-center space-x-3 cursor-pointer" onClick={() => handleNavClick('overview')}>
-            <div className="relative flex items-center justify-center w-10 h-10 rounded-lg bg-cyan-950/60 border border-cyan-400/40 shadow-glow-cyan">
-              <Shield className="w-5 h-5 text-cyan-400 animate-pulse" />
-              <div className="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping" />
-            </div>
-            <div>
-              <div className="flex items-center space-x-2">
-                <span className="text-xl font-bold tracking-wider text-white">
-                  Pulse<span className="text-cyan-400">X</span>
-                </span>
-                <span className="hidden sm:inline-block px-2 py-0.5 text-[10px] font-mono tracking-widest uppercase bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 rounded">
-                  NTRO • SIH 26152
-                </span>
-              </div>
-              <p className="text-[10px] font-mono tracking-widest text-slate-400 uppercase">
-                SOCIAL INTELLIGENCE
-              </p>
-            </div>
-          </div>
+          {/* Enhanced SocioIntell Tactical Logo */}
+          <SocioIntellLogo
+            size="md"
+            onClick={() => handleNavClick('overview')}
+            className="hover:opacity-90 transition-opacity"
+          />
 
           {/* Desktop Navigation Links */}
           <nav className="hidden lg:flex items-center space-x-1">
-            {navItems.map((item) => {
+            {navItems.slice(0, 5).map((item) => {
               const Icon = item.icon;
-              const isActive = activeTab === item.id;
+              const isActive = activeTab === item.id && !activePlatform;
               return (
                 <button
                   key={item.id}
                   onClick={() => handleNavClick(item.id)}
-                  className={`relative flex items-center space-x-1.5 px-3 py-1.5 text-xs font-medium rounded-md transition-all duration-200 ${
+                  className={`relative flex items-center space-x-1 px-2.5 py-1.5 text-xs font-medium rounded-md transition-all duration-200 ${
                     isActive
                       ? 'text-cyan-300 bg-cyan-500/15 border border-cyan-500/40 shadow-glow-cyan'
                       : 'text-slate-300 hover:text-white hover:bg-slate-800/40'
@@ -107,25 +128,81 @@ export const Navbar: React.FC<NavbarProps> = ({
                   <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-cyan-400' : 'text-slate-400'}`} />
                   <span>{item.label}</span>
                   {item.badge && (
-                    <span className="ml-1 px-1.5 py-0.2 text-[9px] font-mono font-bold bg-violet-500/20 text-violet-300 border border-violet-400/30 rounded">
+                    <span className="ml-1 px-1 py-0.2 text-[8px] font-mono font-bold bg-violet-500/20 text-violet-300 border border-violet-400/30 rounded">
                       {item.badge}
                     </span>
                   )}
                 </button>
               );
             })}
+
+            {/* Dedicated Platforms Dropdown/Switcher in HUD */}
+            <div className="relative pl-1">
+              <button
+                onClick={() => setPlatformMenuOpen(!platformMenuOpen)}
+                className={`flex items-center space-x-1.5 px-2.5 py-1.5 text-xs font-medium rounded-md border transition-all ${
+                  activePlatform
+                    ? 'bg-cyan-950/80 text-cyan-300 border-cyan-400/50 shadow-glow-cyan font-bold'
+                    : 'bg-slate-900/60 text-slate-300 border-slate-700/80 hover:text-white hover:bg-slate-800'
+                }`}
+              >
+                <Database className="w-3.5 h-3.5 text-cyan-400" />
+                <span>{activePlatform ? `Platform: ${activePlatform}` : 'Platform Pages'}</span>
+                <ChevronDown className="w-3 h-3 text-slate-400" />
+              </button>
+
+              {platformMenuOpen && (
+                <div className="absolute top-full left-0 mt-2 w-56 p-2 rounded-xl bg-[#071328]/95 border border-cyan-500/40 shadow-2xl backdrop-blur-2xl z-50 space-y-1">
+                  <div className="text-[10px] font-mono text-cyan-400 uppercase tracking-wider px-2 py-1 border-b border-slate-800">
+                    Dedicated Intelligence Pages
+                  </div>
+                  {platforms.map((p) => (
+                    <button
+                      key={p.name}
+                      onClick={() => handlePlatformClick(p.name)}
+                      className={`w-full flex items-center space-x-2.5 px-2.5 py-1.5 rounded-lg text-xs font-mono transition-all text-left ${
+                        activePlatform === p.name
+                          ? 'bg-cyan-500/20 text-white font-bold border border-cyan-500/30'
+                          : 'text-slate-300 hover:bg-slate-800/80 hover:text-white'
+                      }`}
+                    >
+                      <span className={p.color}>{p.icon}</span>
+                      <span>{p.label}</span>
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Quick Platform Icons Bar (Desktop Extra) */}
+            <div className="hidden xl:flex items-center space-x-1 pl-2 border-l border-slate-800">
+              {platforms.map((p) => (
+                <button
+                  key={p.name}
+                  onClick={() => handlePlatformClick(p.name)}
+                  title={`Open ${p.label} dedicated page`}
+                  className={`p-1.5 rounded-md transition-all ${
+                    activePlatform === p.name
+                      ? `bg-slate-800 border ${p.border} ${p.color} ring-1 ring-cyan-400`
+                      : `hover:bg-slate-800/80 ${p.color} opacity-70 hover:opacity-100`
+                  }`}
+                >
+                  {p.icon}
+                </button>
+              ))}
+            </div>
           </nav>
 
           {/* Actions & Status Indicator */}
-          <div className="hidden sm:flex items-center space-x-3">
+          <div className="hidden sm:flex items-center space-x-2.5">
             {/* Live Indicator */}
-            <div className="flex items-center space-x-2 px-2.5 py-1 rounded-full bg-emerald-950/40 border border-emerald-500/30">
+            <div className="flex items-center space-x-1.5 px-2.5 py-1 rounded-full bg-emerald-950/50 border border-emerald-500/30">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
               </span>
-              <span className="text-[11px] font-mono font-semibold tracking-wider text-emerald-400">
-                LIVE
+              <span className="text-[10px] font-mono font-bold tracking-wider text-emerald-400">
+                6 FEEDS LIVE
               </span>
             </div>
 
@@ -170,9 +247,10 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <button
                   onClick={onLogout}
                   title="Sign Out of NTRO Session"
-                  className="p-1.5 rounded bg-slate-800/80 hover:bg-rose-950/80 text-slate-400 hover:text-rose-300 border border-slate-700 hover:border-rose-500/50 transition-all"
+                  className="flex items-center space-x-1 px-2.5 py-1 rounded bg-rose-950/60 hover:bg-rose-900/80 text-rose-300 border border-rose-500/40 hover:border-rose-400/60 transition-all text-xs font-mono font-semibold"
                 >
                   <LogOut className="w-3.5 h-3.5" />
+                  <span>Logout</span>
                 </button>
               </div>
             ) : (
@@ -255,6 +333,29 @@ export const Navbar: React.FC<NavbarProps> = ({
               </button>
             );
           })}
+
+          {/* Mobile Platform Pages Section */}
+          <div className="pt-3 border-t border-slate-800 space-y-1.5">
+            <div className="text-[10px] font-mono text-cyan-400 uppercase tracking-wider px-3">
+              Dedicated Platform Hubs
+            </div>
+            <div className="grid grid-cols-2 gap-1.5 px-2">
+              {platforms.map((p) => (
+                <button
+                  key={p.name}
+                  onClick={() => handlePlatformClick(p.name)}
+                  className={`flex items-center space-x-2 px-2.5 py-2 rounded-lg text-xs font-mono border ${
+                    activePlatform === p.name
+                      ? `bg-slate-800 text-white font-bold ${p.border}`
+                      : 'bg-slate-900/60 text-slate-300 border-slate-800 hover:bg-slate-800'
+                  }`}
+                >
+                  <span className={p.color}>{p.icon}</span>
+                  <span>{p.name}</span>
+                </button>
+              ))}
+            </div>
+          </div>
         </div>
       )}
     </header>

@@ -48,7 +48,7 @@ class IntelligenceAPIService {
       const response = await fetch(`${API_BASE_URL}${endpoint}`, {
         headers: {
           'Content-Type': 'application/json',
-          'X-Client-Version': 'PulseX-1.0.0',
+          'X-Client-Version': 'SocioIntell-1.0.0',
         },
       });
 
@@ -61,7 +61,7 @@ class IntelligenceAPIService {
     } catch (err) {
       if (this.isBackendAvailable !== false) {
         console.info(
-          `[PulseX Intelligence Service] Backend at ${API_BASE_URL} is unreachable. Operating seamlessly in high-fidelity simulation mode.`,
+          `[SocioIntell Intelligence Service] Backend at ${API_BASE_URL} is unreachable. Operating seamlessly in high-fidelity simulation mode.`,
           err
         );
         this.isBackendAvailable = false;

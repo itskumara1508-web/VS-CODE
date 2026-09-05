@@ -36,7 +36,7 @@ export const ReportModal: React.FC<ReportModalProps> = ({ isOpen, onClose }) => 
     const reportData = {
       agency: 'National Technical Research Organisation (NTRO)',
       event: 'Smart India Hackathon 2026 • Problem 26152',
-      project: 'PulseX — AI Social Media Intelligence',
+      project: 'SocioIntell — AI Social Media Intelligence',
       generatedAt: new Date().toISOString(),
       classification: 'OFFICIAL USE ONLY // NTRO DIRECTIVE',
       kpis: initialKPIMetrics,
@@ -50,7 +50,7 @@ export const ReportModal: React.FC<ReportModalProps> = ({ isOpen, onClose }) => 
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `NTRO_PulseX_Intelligence_Report_${Date.now()}.json`;
+    a.download = `NTRO_SocioIntell_Intelligence_Report_${Date.now()}.json`;
     a.click();
     URL.revokeObjectURL(url);
   };
@@ -105,7 +105,7 @@ export const ReportModal: React.FC<ReportModalProps> = ({ isOpen, onClose }) => 
                 SMART INDIA HACKATHON 2026 • PROBLEM STATEMENT ID 26152
               </p>
               <p className="text-[11px] text-slate-400 mt-1">
-                Project: PulseX — AI Social Media Intelligence & Network Dissemination
+                Project: SocioIntell — AI Social Media Intelligence & Network Dissemination
               </p>
             </div>
             <div className="text-right text-[11px] text-slate-400">
@@ -217,7 +217,7 @@ export const ReportModal: React.FC<ReportModalProps> = ({ isOpen, onClose }) => 
           <div className="pt-6 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between text-[11px] text-slate-500">
             <div className="flex items-center space-x-2">
               <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-              <span>DIGITALLY SIGNED & VERIFIED BY PULSEX AI AGENT ENGINE</span>
+              <span>DIGITALLY SIGNED & VERIFIED BY SOCIOINTELL AI AGENT ENGINE</span>
             </div>
             <span className="mt-2 sm:mt-0 font-mono">NATIONAL TECHNICAL RESEARCH ORGANISATION</span>
           </div>

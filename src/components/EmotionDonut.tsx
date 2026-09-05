@@ -128,7 +128,7 @@ export const EmotionDonut: React.FC = () => {
           </div>
 
           <p className="text-xs text-slate-400 mb-4">
-            Traditional lexicons misclassify cynical posts containing positive tokens ("amazing", "great job"). PulseX isolates polarity clashes and emoji context.
+            Traditional lexicons misclassify cynical posts containing positive tokens ("amazing", "great job"). SocioIntell isolates polarity clashes and emoji context.
           </p>
 
           {/* Preset Buttons */}
