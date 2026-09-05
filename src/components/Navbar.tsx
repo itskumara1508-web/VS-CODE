@@ -41,6 +41,8 @@ interface NavbarProps {
   onLogout: () => void;
   onSelectPlatform?: (platform: Platform) => void;
   activePlatform?: Platform | null;
+  onOpenEmotion?: () => void;
+  isEmotionActive?: boolean;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -55,6 +57,8 @@ export const Navbar: React.FC<NavbarProps> = ({
   onLogout,
   onSelectPlatform,
   activePlatform,
+  onOpenEmotion,
+  isEmotionActive,
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [platformMenuOpen, setPlatformMenuOpen] = useState(false);
@@ -173,6 +177,23 @@ export const Navbar: React.FC<NavbarProps> = ({
                 </div>
               )}
             </div>
+
+            {/* Dedicated Emotion Intelligence Page Button */}
+            <button
+              onClick={() => {
+                if (onOpenEmotion) {
+                  onOpenEmotion();
+                }
+              }}
+              className={`flex items-center space-x-1.5 px-3 py-1.5 text-xs font-mono font-bold rounded-md border transition-all ${
+                isEmotionActive
+                  ? 'bg-gradient-to-r from-pink-500/25 to-purple-600/35 text-pink-300 border-pink-400/60 shadow-[0_0_15px_rgba(236,72,153,0.35)]'
+                  : 'bg-slate-900/70 text-pink-300/80 border-pink-500/30 hover:text-pink-200 hover:bg-slate-800'
+              }`}
+            >
+              <span className="text-sm">🎭</span>
+              <span>Emotion Hub</span>
+            </button>
 
             {/* Quick Platform Icons Bar (Desktop Extra) */}
             <div className="hidden xl:flex items-center space-x-1 pl-2 border-l border-slate-800">
@@ -333,6 +354,29 @@ export const Navbar: React.FC<NavbarProps> = ({
               </button>
             );
           })}
+
+          {/* Mobile Dedicated Emotion Hub */}
+          <div className="pt-2 border-t border-slate-800">
+            <button
+              onClick={() => {
+                setMobileMenuOpen(false);
+                if (onOpenEmotion) onOpenEmotion();
+              }}
+              className={`w-full flex items-center justify-between px-3 py-2 text-sm rounded-md font-mono font-bold transition-all ${
+                isEmotionActive
+                  ? 'bg-pink-500/25 text-pink-300 border border-pink-500/50'
+                  : 'bg-slate-900/80 text-pink-300/90 border border-pink-500/30 hover:bg-slate-800'
+              }`}
+            >
+              <div className="flex items-center space-x-2.5">
+                <span className="text-base">🎭</span>
+                <span>Emotion Intelligence Hub</span>
+              </div>
+              <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-pink-950/80 text-pink-300 border border-pink-500/30">
+                8 VECTORS
+              </span>
+            </button>
+          </div>
 
           {/* Mobile Platform Pages Section */}
           <div className="pt-3 border-t border-slate-800 space-y-1.5">
