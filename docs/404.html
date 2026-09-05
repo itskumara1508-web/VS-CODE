@@ -19,6 +19,23 @@
   </head>
   <body class="bg-[#030712] text-slate-100 antialiased overflow-x-hidden selection:bg-cyan-500/30 selection:text-cyan-200">
     <div id="root"></div>
+    <script>
+      // Automatic fallback if GitHub Pages serves the repository root instead of the dist or gh-pages branch
+      if (window.location.hostname.includes('github.io')) {
+        var hasBuiltScript = !!document.querySelector('script[src*="assets/"]');
+        if (!hasBuiltScript) {
+          var css = document.createElement('link');
+          css.rel = 'stylesheet';
+          css.href = './docs/assets/index-CJuOvIg1.css';
+          document.head.appendChild(css);
+
+          var js = document.createElement('script');
+          js.type = 'module';
+          js.src = './docs/assets/index-C8Qk3i5J.js';
+          document.body.appendChild(js);
+        }
+      }
+    </script>
   </body>
 </html>
 
