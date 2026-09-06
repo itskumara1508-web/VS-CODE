@@ -43,6 +43,8 @@ interface NavbarProps {
   activePlatform?: Platform | null;
   onOpenEmotion?: () => void;
   isEmotionActive?: boolean;
+  onOpenManualReport?: () => void;
+  isManualReportActive?: boolean;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -59,6 +61,8 @@ export const Navbar: React.FC<NavbarProps> = ({
   activePlatform,
   onOpenEmotion,
   isEmotionActive,
+  onOpenManualReport,
+  isManualReportActive,
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [platformMenuOpen, setPlatformMenuOpen] = useState(false);
@@ -193,6 +197,23 @@ export const Navbar: React.FC<NavbarProps> = ({
             >
               <span className="text-sm">🎭</span>
               <span>Emotion Hub</span>
+            </button>
+
+            {/* Dedicated Manual Report & Ingestion Hub Button */}
+            <button
+              onClick={() => {
+                if (onOpenManualReport) {
+                  onOpenManualReport();
+                }
+              }}
+              className={`flex items-center space-x-1.5 px-3 py-1.5 text-xs font-mono font-bold rounded-md border transition-all ${
+                isManualReportActive
+                  ? 'bg-gradient-to-r from-cyan-500/25 to-blue-600/35 text-cyan-300 border-cyan-400/60 shadow-[0_0_15px_rgba(6,182,212,0.35)]'
+                  : 'bg-slate-900/70 text-cyan-300/80 border-cyan-500/30 hover:text-cyan-200 hover:bg-slate-800'
+              }`}
+            >
+              <span className="text-sm">📝</span>
+              <span>Manual Report</span>
             </button>
 
             {/* Quick Platform Icons Bar (Desktop Extra) */}
@@ -374,6 +395,29 @@ export const Navbar: React.FC<NavbarProps> = ({
               </div>
               <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-pink-950/80 text-pink-300 border border-pink-500/30">
                 8 VECTORS
+              </span>
+            </button>
+          </div>
+
+          {/* Mobile Dedicated Manual Report Hub */}
+          <div className="pt-2">
+            <button
+              onClick={() => {
+                setMobileMenuOpen(false);
+                if (onOpenManualReport) onOpenManualReport();
+              }}
+              className={`w-full flex items-center justify-between px-3 py-2 text-sm rounded-md font-mono font-bold transition-all ${
+                isManualReportActive
+                  ? 'bg-cyan-500/25 text-cyan-300 border border-cyan-500/50'
+                  : 'bg-slate-900/80 text-cyan-300/90 border border-cyan-500/30 hover:bg-slate-800'
+              }`}
+            >
+              <div className="flex items-center space-x-2.5">
+                <span className="text-base">📝</span>
+                <span>Manual Ingestion & Reports</span>
+              </div>
+              <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-cyan-950/80 text-cyan-300 border border-cyan-500/30">
+                DOSSIER
               </span>
             </button>
           </div>

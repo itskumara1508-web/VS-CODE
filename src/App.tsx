@@ -23,6 +23,7 @@ import { LoginPage } from './components/LoginPage';
 import { LogoutPage } from './components/LogoutPage';
 import { PlatformPage } from './components/PlatformPage';
 import { EmotionPage } from './components/EmotionPage';
+import { ManualReportPage } from './components/ManualReportPage';
 import { CyberStarfield3D } from './components/CyberStarfield3D';
 import { useLiveData } from './hooks/useLiveData';
 import { AuthUser, Platform } from './types';
@@ -31,7 +32,7 @@ export const App: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [activeTab, setActiveTab] = useState<string>('overview');
   const [isReportOpen, setIsReportOpen] = useState<boolean>(false);
-  const [viewMode, setViewMode] = useState<'dashboard' | 'login' | 'logout' | 'platform' | 'emotion'>('login');
+  const [viewMode, setViewMode] = useState<'dashboard' | 'login' | 'logout' | 'platform' | 'emotion' | 'manual-report'>('login');
   const [selectedPlatform, setSelectedPlatform] = useState<Platform>('X');
   const [currentUser, setCurrentUser] = useState<AuthUser | null>(null);
   const [lastUser, setLastUser] = useState<AuthUser | null>(null);
@@ -59,6 +60,8 @@ export const App: React.FC = () => {
 
       if (raw === 'emotion' || raw === 'emotions') {
         setViewMode('emotion');
+      } else if (raw === 'manual-report' || raw === 'manual' || raw === 'report-entry') {
+        setViewMode('manual-report');
       } else if (raw === 'dashboard') {
         setViewMode('dashboard');
       } else if (raw === 'logout') {
@@ -80,6 +83,8 @@ export const App: React.FC = () => {
       targetHash = `platform/${selectedPlatform.toLowerCase()}`;
     } else if (viewMode === 'emotion') {
       targetHash = 'emotion';
+    } else if (viewMode === 'manual-report') {
+      targetHash = 'manual-report';
     }
     if (window.location.hash.replace('#', '') !== targetHash) {
       window.location.hash = targetHash;
@@ -209,7 +214,17 @@ export const App: React.FC = () => {
   return (
     <div className="relative min-h-screen bg-[#030712] text-slate-100 flex flex-col selection:bg-cyan-500/30 selection:text-cyan-200">
       {/* 3D Interactive Cyber Starfield Background */}
-      <CyberStarfield3D activePlatform={viewMode === 'emotion' ? 'emotion' : viewMode === 'platform' ? selectedPlatform : null} />
+      <CyberStarfield3D
+        activePlatform={
+          viewMode === 'manual-report'
+            ? 'manual-report'
+            : viewMode === 'emotion'
+            ? 'emotion'
+            : viewMode === 'platform'
+            ? selectedPlatform
+            : null
+        }
+      />
 
       <div className="relative z-10 flex flex-col min-h-screen">
         {/* Classified Officer Session Header if Logged In */}
@@ -248,10 +263,19 @@ export const App: React.FC = () => {
         activePlatform={viewMode === 'platform' ? selectedPlatform : null}
         onOpenEmotion={() => setViewMode('emotion')}
         isEmotionActive={viewMode === 'emotion'}
+        onOpenManualReport={() => setViewMode('manual-report')}
+        isManualReportActive={viewMode === 'manual-report'}
       />
 
-      {/* View Switcher: Emotion Hub vs Platform Page vs Main Global Command Center */}
-      {viewMode === 'emotion' ? (
+      {/* View Switcher: Manual Report vs Emotion Hub vs Platform Page vs Main Global Command Center */}
+      {viewMode === 'manual-report' ? (
+        <main className="flex-1 w-full">
+          <ManualReportPage
+            onBackToDashboard={() => setViewMode('dashboard')}
+            onSelectPlatform={handleSelectPlatform}
+          />
+        </main>
+      ) : viewMode === 'emotion' ? (
         <main className="flex-1 w-full">
           <EmotionPage
             onBackToDashboard={() => setViewMode('dashboard')}
