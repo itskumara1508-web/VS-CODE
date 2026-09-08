@@ -162,3 +162,4 @@ export const presetTemplates: Omit<ManualIngestionRecord, 'id' | 'timestamp'>[] 
     tags: ['#CyberSec', '#CVE', '#PatchAdvisory'],
   },
 ];
+

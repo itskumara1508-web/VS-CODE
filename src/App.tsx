@@ -24,6 +24,7 @@ import { LogoutPage } from './components/LogoutPage';
 import { PlatformPage } from './components/PlatformPage';
 import { EmotionPage } from './components/EmotionPage';
 import { ManualReportPage } from './components/ManualReportPage';
+import { PostForensicsPage } from './components/PostForensicsPage';
 import { CyberStarfield3D } from './components/CyberStarfield3D';
 import { useLiveData } from './hooks/useLiveData';
 import { AuthUser, Platform } from './types';
@@ -32,7 +33,7 @@ export const App: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [activeTab, setActiveTab] = useState<string>('overview');
   const [isReportOpen, setIsReportOpen] = useState<boolean>(false);
-  const [viewMode, setViewMode] = useState<'dashboard' | 'login' | 'logout' | 'platform' | 'emotion' | 'manual-report'>('login');
+  const [viewMode, setViewMode] = useState<'dashboard' | 'login' | 'logout' | 'platform' | 'emotion' | 'manual-report' | 'post-forensics'>('login');
   const [selectedPlatform, setSelectedPlatform] = useState<Platform>('X');
   const [currentUser, setCurrentUser] = useState<AuthUser | null>(null);
   const [lastUser, setLastUser] = useState<AuthUser | null>(null);
@@ -62,6 +63,8 @@ export const App: React.FC = () => {
         setViewMode('emotion');
       } else if (raw === 'manual-report' || raw === 'manual' || raw === 'report-entry') {
         setViewMode('manual-report');
+      } else if (raw === 'post-forensics' || raw === 'forensics' || raw === 'origin') {
+        setViewMode('post-forensics');
       } else if (raw === 'dashboard') {
         setViewMode('dashboard');
       } else if (raw === 'logout') {
@@ -85,6 +88,8 @@ export const App: React.FC = () => {
       targetHash = 'emotion';
     } else if (viewMode === 'manual-report') {
       targetHash = 'manual-report';
+    } else if (viewMode === 'post-forensics') {
+      targetHash = 'post-forensics';
     }
     if (window.location.hash.replace('#', '') !== targetHash) {
       window.location.hash = targetHash;
@@ -216,7 +221,9 @@ export const App: React.FC = () => {
       {/* 3D Interactive Cyber Starfield Background */}
       <CyberStarfield3D
         activePlatform={
-          viewMode === 'manual-report'
+          viewMode === 'post-forensics'
+            ? 'post-forensics'
+            : viewMode === 'manual-report'
             ? 'manual-report'
             : viewMode === 'emotion'
             ? 'emotion'
@@ -265,10 +272,19 @@ export const App: React.FC = () => {
         isEmotionActive={viewMode === 'emotion'}
         onOpenManualReport={() => setViewMode('manual-report')}
         isManualReportActive={viewMode === 'manual-report'}
+        onOpenPostForensics={() => setViewMode('post-forensics')}
+        isPostForensicsActive={viewMode === 'post-forensics'}
       />
 
-      {/* View Switcher: Manual Report vs Emotion Hub vs Platform Page vs Main Global Command Center */}
-      {viewMode === 'manual-report' ? (
+      {/* View Switcher: Post Forensics vs Manual Report vs Emotion Hub vs Platform Page vs Main Global Command Center */}
+      {viewMode === 'post-forensics' ? (
+        <main className="flex-1 w-full">
+          <PostForensicsPage
+            onBackToDashboard={() => setViewMode('dashboard')}
+            onSelectPlatform={handleSelectPlatform}
+          />
+        </main>
+      ) : viewMode === 'manual-report' ? (
         <main className="flex-1 w-full">
           <ManualReportPage
             onBackToDashboard={() => setViewMode('dashboard')}

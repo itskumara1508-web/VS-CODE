@@ -45,6 +45,8 @@ interface NavbarProps {
   isEmotionActive?: boolean;
   onOpenManualReport?: () => void;
   isManualReportActive?: boolean;
+  onOpenPostForensics?: () => void;
+  isPostForensicsActive?: boolean;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -63,6 +65,8 @@ export const Navbar: React.FC<NavbarProps> = ({
   isEmotionActive,
   onOpenManualReport,
   isManualReportActive,
+  onOpenPostForensics,
+  isPostForensicsActive,
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [platformMenuOpen, setPlatformMenuOpen] = useState(false);
@@ -214,6 +218,23 @@ export const Navbar: React.FC<NavbarProps> = ({
             >
               <span className="text-sm">📝</span>
               <span>Manual Report</span>
+            </button>
+
+            {/* Dedicated Post & Device Forensics Hub Button */}
+            <button
+              onClick={() => {
+                if (onOpenPostForensics) {
+                  onOpenPostForensics();
+                }
+              }}
+              className={`flex items-center space-x-1.5 px-3 py-1.5 text-xs font-mono font-bold rounded-md border transition-all ${
+                isPostForensicsActive
+                  ? 'bg-gradient-to-r from-emerald-500/25 to-cyan-600/35 text-emerald-300 border-emerald-400/60 shadow-[0_0_15px_rgba(16,185,129,0.35)]'
+                  : 'bg-slate-900/70 text-emerald-300/80 border-emerald-500/30 hover:text-emerald-200 hover:bg-slate-800'
+              }`}
+            >
+              <span className="text-sm">📍</span>
+              <span>Post Forensics</span>
             </button>
 
             {/* Quick Platform Icons Bar (Desktop Extra) */}
@@ -418,6 +439,29 @@ export const Navbar: React.FC<NavbarProps> = ({
               </div>
               <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-cyan-950/80 text-cyan-300 border border-cyan-500/30">
                 DOSSIER
+              </span>
+            </button>
+          </div>
+
+          {/* Mobile Dedicated Post Forensics Hub */}
+          <div className="pt-2">
+            <button
+              onClick={() => {
+                setMobileMenuOpen(false);
+                if (onOpenPostForensics) onOpenPostForensics();
+              }}
+              className={`w-full flex items-center justify-between px-3 py-2 text-sm rounded-md font-mono font-bold transition-all ${
+                isPostForensicsActive
+                  ? 'bg-emerald-500/25 text-emerald-300 border border-emerald-500/50'
+                  : 'bg-slate-900/80 text-emerald-300/90 border border-emerald-500/30 hover:bg-slate-800'
+              }`}
+            >
+              <div className="flex items-center space-x-2.5">
+                <span className="text-base">📍</span>
+                <span>Post & Origin Forensics</span>
+              </div>
+              <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-emerald-950/80 text-emerald-300 border border-emerald-500/30">
+                GEO/DEV
               </span>
             </button>
           </div>

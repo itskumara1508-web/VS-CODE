@@ -3,7 +3,7 @@ import * as THREE from 'three';
 import { Platform } from '../types';
 
 interface CyberStarfield3DProps {
-  activePlatform?: Platform | 'emotion' | 'manual-report' | null;
+  activePlatform?: Platform | 'emotion' | 'manual-report' | 'post-forensics' | null;
 }
 
 export const CyberStarfield3D: React.FC<CyberStarfield3DProps> = ({ activePlatform }) => {
@@ -14,8 +14,10 @@ export const CyberStarfield3D: React.FC<CyberStarfield3DProps> = ({ activePlatfo
     const container = containerRef.current;
 
     // Platform-specific color palettes
-    const getPlatformColors = (platform?: Platform | 'emotion' | 'manual-report' | null) => {
+    const getPlatformColors = (platform?: Platform | 'emotion' | 'manual-report' | 'post-forensics' | null) => {
       switch (platform) {
+        case 'post-forensics':
+          return [0x00f0ff, 0x10b981, 0xf59e0b, 0xa855f7];
         case 'manual-report':
           return [0x00f0ff, 0x10b981, 0x3b82f6, 0x8b5cf6];
         case 'emotion':
